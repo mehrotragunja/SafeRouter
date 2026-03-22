@@ -1,6 +1,6 @@
 const FB = {
-  key: 'AIzaSyBeBcJPRIeAEn2lym0X9TfVihQzaJ2l3os',
-  pid: 'saferouter-44214',
+  key: process.env.REACT_APP_FIREBASE_API_KEY,
+  pid: process.env.REACT_APP_FIREBASE_PROJECT_ID,
   auth: 'https://identitytoolkit.googleapis.com/v1',
   fs: 'https://firestore.googleapis.com/v1'
 };
