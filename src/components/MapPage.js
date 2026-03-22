@@ -30,7 +30,10 @@ function MapPage({ user, onLogout }) {
   useEffect(() => {
     if (!mapContainer.current) return;
 
-    // Initialize map
+    // Check if map is already initialized
+    if (map.current) return;
+
+    // Initialize map with a default view
     map.current = L.map(mapContainer.current).setView([28.61, 77.23], 13);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -38,7 +41,31 @@ function MapPage({ user, onLogout }) {
       attribution: '© OpenStreetMap contributors'
     }).addTo(map.current);
 
-    // Watch position
+    // Get current position first, then watch for updates
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const lat = pos.coords.latitude;
+        const lng = pos.coords.longitude;
+        setCurrentLocation({ lat, lng });
+        
+        // Center map on current location
+        if (map.current) {
+          map.current.setView([lat, lng], 15);
+        }
+        
+        // Add marker for current location
+        if (markerRef.current) {
+          map.current.removeLayer(markerRef.current);
+        }
+        markerRef.current = L.marker([lat, lng]).addTo(map.current);
+      },
+      (err) => {
+        console.error('Geolocation error:', err);
+      },
+      { enableHighAccuracy: true, timeout: 5000 }
+    );
+
+    // Watch position for continuous updates
     watchIdRef.current = navigator.geolocation.watchPosition(
       (pos) => {
         const lat = pos.coords.latitude;
@@ -53,17 +80,22 @@ function MapPage({ user, onLogout }) {
 
         // Add new marker
         markerRef.current = L.marker([lat, lng]).addTo(map.current);
-        map.current.setView([lat, lng]);
+        map.current.setView([lat, lng], 15);
       },
       (err) => {
-        console.error('Geolocation error:', err);
+        console.error('Geolocation watch error:', err);
       },
-      { enableHighAccuracy: true, maximumAge: 0 }
+      { enableHighAccuracy: true, maximumAge: 0, timeout: 5000 }
     );
 
     return () => {
       if (watchIdRef.current) {
         navigator.geolocation.clearWatch(watchIdRef.current);
+      }
+      // Properly clean up the map
+      if (map.current) {
+        map.current.remove();
+        map.current = null;
       }
     };
   }, []);

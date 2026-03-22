@@ -1,0 +1,249 @@
+/* ════════════════════════════════════════════
+   AUTHENTICATION PAGES STYLES
+════════════════════════════════════════════ */
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 40px 32px;
+  border-radius: 28px;
+  animation: slideUp 0.5s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Login page specific layout */
+.page.active .login-left {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .page.active .auth-card {
+    max-width: 720px;
+    width: min(720px, 96vw);
+    min-height: 460px;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .page.active .login-left {
+    display: flex;
+    width: 40%;
+    background: linear-gradient(135deg, rgba(232, 99, 122, 0.2), rgba(181, 82, 122, 0.15));
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+  }
+
+  .page.active .login-content {
+    text-align: center;
+  }
+
+  .page.active .logo-text {
+    font-family: var(--fd);
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--r);
+    margin-bottom: 10px;
+    text-shadow: 0 4px 12px rgba(232, 99, 122, 0.2);
+  }
+
+  .page.active .logo-subtitle {
+    font-size: 14px;
+    color: var(--muted);
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+
+  .page.active .login-right {
+    width: 60%;
+    padding: 40px 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.auth-header h2 {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 8px;
+  font-family: var(--fd);
+}
+
+.auth-header p {
+  font-size: 14px;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.field-select {
+  width: 100%;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.25);
+  border: 1.5px solid rgba(255, 255, 255, 0.45);
+  border-radius: 14px;
+  font-family: var(--ff);
+  font-size: 14px;
+  color: var(--text);
+  outline: none;
+  transition: all 0.25s;
+  cursor: pointer;
+}
+
+.field-select:hover,
+.field-select:focus {
+  border-color: var(--r);
+  background: rgba(255, 255, 255, 0.38);
+  box-shadow: 0 0 0 4px rgba(232, 99, 122, 0.14);
+}
+
+.field-select option {
+  background: white;
+  color: var(--text);
+  padding: 8px;
+}
+
+.auth-toggle {
+  text-align: center;
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 16px;
+}
+
+.auth-toggle .link {
+  color: var(--r);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+/* ════ ONBOARDING PAGE ════ */
+
+.onboard-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 40px 32px;
+  border-radius: 28px;
+  animation: slideUp 0.5s ease;
+}
+
+.step-dots {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.sdot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transition: all 0.3s;
+}
+
+.sdot.on {
+  background: var(--r);
+  width: 24px;
+  border-radius: 4px;
+}
+
+.ob-step {
+  display: none;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.ob-step.on {
+  display: flex;
+  animation: fadeIn 0.4s ease;
+}
+
+.step-question {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.step-hint {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: -8px;
+}
+
+.ob-buttons {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.ob-buttons .btn {
+  flex: 1;
+}
+
+.skip-btn {
+  width: 100%;
+  padding: 10px;
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 12px;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+.skip-btn:hover:not(:disabled) {
+  color: var(--text);
+}
+
+.skip-btn:disabled {
+  opacity: 0.6;
+}
+
+/* ════ ANIMATIONS ════ */
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ════ RESPONSIVE ════ */
+
+@media (max-width: 480px) {
+  .auth-card,
+  .onboard-card {
+    max-width: 100%;
+    padding: 32px 20px;
+    border-radius: 20px;
+  }
+
+  .auth-header h2 {
+    font-size: 24px;
+  }
+
+  .step-question {
+    font-size: 16px;
+  }
+}

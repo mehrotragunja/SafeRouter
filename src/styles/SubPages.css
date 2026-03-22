@@ -1,0 +1,22 @@
+/* ════════════════════════════════════════════
+   SUB-PAGES GENERAL STYLES
+════════════════════════════════════════════ */
+
+/* This file is included via Sidebar.css */
+
+/* Responsive tweaks */
+
+@media (max-width: 768px) {
+  .sub-header {
+    padding: 16px;
+  }
+
+  .sub-header h2 {
+    font-size: 20px;
+  }
+
+  .sub-body {
+    padding: 16px;
+    gap: 12px;
+  }
+}
