@@ -7,7 +7,6 @@ import '../../styles/MapPage.css';
 
 function SearchBar() {
   const { setRouteData, setIsNavigating, showToast, currentLocation } = useContext(AppContext);
-  const [origin, setOrigin] = useState('');
   const [destination, setDestination] = useState('');
   const [loading, setLoading] = useState(false);
   const [locationName, setLocationName] = useState('Locating...');
@@ -23,11 +22,9 @@ function SearchBar() {
           const data = await res.json();
           const name = data.address?.city || data.address?.town || data.address?.village || data.name || 'Current Location';
           setLocationName(name);
-          setOrigin(name);
         } catch (err) {
           console.error('Reverse geocoding error:', err);
           setLocationName('Current Location');
-          setOrigin('Current Location');
         }
       };
       fetchLocationName();
