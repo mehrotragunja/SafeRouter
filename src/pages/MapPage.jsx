@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { AppContext } from '../context/AppContext';
 import { useGPS } from '../hooks/useGPS';
-import { saveHist } from '../utils/history';
 import MapView from '../components/map/MapView';
 import SearchBar from '../components/map/SearchBar';
 import SOSButton from '../components/map/SOSButton';
@@ -39,23 +38,6 @@ function MapPage({ onLogout }) {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  // Save route to history when navigation ends
-  useEffect(() => {
-    if (!isNavigating && routeData) {
-      // Auto-save completed route
-      saveHist({
-        from: routeData.from,
-        to: routeData.to,
-        dLat: currentLocation?.lat || 0,
-        dLng: currentLocation?.lng || 0,
-        time: new Date().toISOString(),
-        score: routeData.score,
-        level: routeData.level
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isNavigating, routeData]);
 
   return (
     <div className="map-page">

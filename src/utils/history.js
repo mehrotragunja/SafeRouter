@@ -47,6 +47,7 @@ export function addToHist(route, uid, fsAdd, idToken) {
     const local = getHist();
     local.unshift(route);
     saveHist(local.slice(0, 50));
+    console.log('✅ Route saved to localStorage. Total routes:', local.length);
 
     // Add to Firestore
     if (uid && fsAdd && idToken) {

@@ -1,16 +1,37 @@
 import React, { useContext } from 'react';
 import { AppContext } from '../../context/AppContext';
+import { addToHist } from '../../utils/history';
+import { fsAdd } from '../../firebase/firestore';
 import { fmtDist, fmtTime } from '../../utils/helpers';
 import '../../styles/MapPage.css';
 
 function NavBar({ routeData }) {
-  const { setRouteData, setIsNavigating, showToast } = useContext(AppContext);
+  const { user, setRouteData, setIsNavigating, showToast, currentLocation } = useContext(AppContext);
 
   if (!routeData) return null;
 
   const handleStart = () => {
     setIsNavigating(true);
     showToast('Launching Google Maps navigation...', 'info');
+    
+    // Save route to history immediately when navigation starts
+    if (routeData) {
+      const routeEntry = {
+        from: routeData.from,
+        to: routeData.to,
+        distance: routeData.distance,
+        duration: routeData.duration,
+        dLat: currentLocation?.lat || 0,
+        dLng: currentLocation?.lng || 0,
+        time: new Date().toISOString(),
+        score: routeData.score,
+        level: routeData.level
+      };
+      
+      console.log('💾 Saving route to history:', routeEntry);
+      addToHist(routeEntry, user?.uid, fsAdd, user?.idToken);
+      showToast('Route saved to history!', 'success');
+    }
     
     // Open Google Maps with the destination
     // Using Google Maps URI scheme for turn-by-turn navigation

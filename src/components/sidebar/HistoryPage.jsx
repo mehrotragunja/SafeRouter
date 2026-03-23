@@ -5,13 +5,17 @@ import { fmtDist, fmtTime } from '../../utils/helpers';
 import '../../styles/SubPages.css';
 
 function HistoryPage() {
-  const { setCurrentPage } = useContext(AppContext);
+  const { setCurrentPage, currentPage } = useContext(AppContext);
   const [history, setHistory] = useState([]);
 
+  // Load history whenever the page becomes visible
   useEffect(() => {
-    const hist = getHist();
-    setHistory(hist || []);
-  }, []);
+    if (currentPage === 'history') {
+      const hist = getHist();
+      console.log('Loading history:', hist);
+      setHistory(hist || []);
+    }
+  }, [currentPage]);
 
   const levelColor = {
     Safe: '#43a047',
