@@ -81,12 +81,20 @@ function RegisterPage({ onPageChange }) {
   return (
     <div className="page active">
       <div className="auth-card glass">
-        <div className="auth-header">
-          <h2>Create Account</h2>
-          <p>Join Safe Router 🌸</p>
+        <div className="login-left">
+          <div className="login-content">
+            <h1 className="logo-text">Safe Router 🌸</h1>
+            <p className="logo-subtitle">Women Safety Navigation</p>
+          </div>
         </div>
 
-        <form onSubmit={handleRegister} className="auth-form">
+        <div className="login-right">
+          <div className="auth-header">
+            <h2>Create Account</h2>
+            <p>Join Safe Router 🌸</p>
+          </div>
+
+          <form onSubmit={handleRegister} className="auth-form">
           <div className="field">
             <label>Email</label>
             <div className="inp-wrap">
@@ -148,6 +156,7 @@ function RegisterPage({ onPageChange }) {
             Sign in here
           </span>
         </p>
+        </div>
       </div>
     </div>
   );

@@ -10,7 +10,23 @@ function NavBar({ routeData }) {
 
   const handleStart = () => {
     setIsNavigating(true);
-    showToast('Navigation started! Stay alert and follow the highlighted route.', 'info');
+    showToast('Launching Google Maps navigation...', 'info');
+    
+    // Open Google Maps with the destination
+    // Using Google Maps URI scheme for turn-by-turn navigation
+    if (routeData.destination) {
+      // Try to get the destination coordinates if available
+      const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${routeData.destination}&travelmode=driving&dir_action=navigate`;
+      window.open(googleMapsUrl, '_blank');
+    } else if (routeData.to) {
+      // Fallback: use destination name
+      const encodedDest = encodeURIComponent(routeData.to);
+      const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodedDest}&travelmode=driving&dir_action=navigate`;
+      window.open(googleMapsUrl, '_blank');
+    } else {
+      showToast('Could not launch navigation', 'error');
+      setIsNavigating(false);
+    }
   };
 
   const handleClear = () => {
